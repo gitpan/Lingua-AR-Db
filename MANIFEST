@@ -1,0 +1,7 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Lingua-AR-Db.t
+lib/Lingua/AR/Db.pm
+META.yml                                 Module meta-data (added by MakeMaker)

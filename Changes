@@ -1,0 +1,7 @@
+			<< Lingua::AR::Db - Andrea Benazzo >>
+
+23/06/2005
+->chenged namespace into Lingua::AR::
+
+21/06/05	1.3
+->Created this OO module for managing the DB

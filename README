@@ -1,0 +1,62 @@
+Lingua-AR-Db version 1.4
+======================
+
+This is the DB management of a dictionary from Arabic to another language:
+for every word coming from the input file, we save it under the file called as its stem.
+
+
+All the vocabulary databases are located in a particular folder, so that these files may be directly modified without any harm to the script execution.
+Filenames will begin with a '%', followed by the ArabTeX translitteration of the stem.
+
+
+Moreover I'm working on an importation module, so that new stems/terms may be added easily and quickly to the local database.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+
+DEPENDENCIES
+
+This module requires module Lingua::AR::Word >=1.0 and Perl >=5.8.1
+
+
+MODULES
+
+Lingua::AR::Db
+	this is the class for the DB object, so that we may access multiple translations (aka "translations in several languages") by accessing various DB objects, each of them working of a different folder.
+
+
+NOTES
+
+->Everything (script code and data) works ONLY if raw data is encoded in Unicode (utf8 or UTF-8). Other representations will lead to errors or wrong results.
+->Please use non-formatted text as input data.
+Using Microsoft Word .doc files, Adobe .pdf or HTML pages WILL cause problems.
+->Every database name begins with a '%' so that it isn't hidden by the shell in case it begins with a period.
+->The syntax for vocabulary database is the following:
+
+"\t arabic-stem
+
+arabic name\t italian translation"
+
+where '\t' means TAB (tabulation, NOT sum of whitespaces)
+->The syntax for files to be imported is the following:
+
+"Italian_name = Arabic_name"
+
+
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2005 by Andrea Benazzo
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.8.6 or,
+at your option, any later version of Perl 5 you may have available.
+
+
