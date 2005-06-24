@@ -5,20 +5,21 @@ use strict;
 use warnings;
 use utf8;
 
-use Lingua::AR::Word::Encode;		#needed to encode the name into ArabTeX encoding
+
 use Switch;
 
 
 our @ISA = qw();
 
-our $VERSION = '1.4';
+our $VERSION = '1.5';
 
 
 sub new{
 
-	my $this={};
-	$this->{FOLDER}=$_[1];
-	$this->{LANG}=$_[2];
+	my $this={
+		FOLDER=>$_[1],
+		LANG=>$_[2]
+	};
 
 	if(!-e $this->{FOLDER}){
 		warn "$this->{FOLDER} doesn't exists..creating it";
@@ -34,11 +35,11 @@ return $this;
 
 sub translate{
 
-	my $word=$_[0];
-	my $db=$_[1];
-	my $translation="NotFound";
+	my $db=shift;
+	my $word=shift;
+	my $translation="TRANSLATION: NotFound\n\n";
 
-	my $input=Lingua::AR::Word::encode(Lingua::AR::Word::stem($word));
+	my $input=Lingua::AR::Word::encode($word->{STEM});
 	$input=($db->{FOLDER})."/%".$input;
 
 	if (-e $input){
@@ -48,13 +49,13 @@ sub translate{
 		my $found=0;
 		while($found==0 and my $line=<DICT>){
 			chomp($line);
-			if($line=~/^$word/){
-				$translation=$';
+			if($line=~/^($word->{WORD})/){
+				$translation="TRANSLATION: $'\n\n";
 				$found=1;
 			}
 		}
 		if(!$found){
-			print "No translation found\n";
+			$translation="No translation found\n\n";
 		}
 	}
 	else{
@@ -206,7 +207,7 @@ sub display_latex{ # creates the LaTeX source file for the whole dictionary
 }
 
 
-sub import{
+sub importation{
 
 	my $file;
 	my $transl;
@@ -280,6 +281,7 @@ print "Importation completed:
 
 }
 
+
 1;
 __END__
 
@@ -289,22 +291,23 @@ Lingua::AR::Db - Perl extension for translating Arabic words into another langua
 
 =head1 SYNOPSIS
 
-  use Lingua::AR::Db;
+  use utf8;
   use Lingua::AR::Word;
+  use Lingua::AR::Db;
 
-my $db=Lingua::AR::Db->new("./dicts","en");
 my $word=Lingua::AR::Word->new(ARABIC_WORD_IN_UTF8);
+my $db=Lingua::AR::Db->new("./dicts","en");
 
 
 open FOUTPUT, ">>TEST" or die "Cannot create TEST: $!\n";
 binmode(FOUTPUT,":utf8");
-print FOUTPUT $word->get_translation($db);
+print FOUTPUT $db->translate($word);
 close FOUTPUT;
 
 
 $db->display_html();
 $db->display_latex();
-$db->import("file");
+$db->importation("file");
 
 =head1 DESCRIPTION
 
