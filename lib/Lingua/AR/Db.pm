@@ -11,7 +11,7 @@ use Switch;
 
 our @ISA = qw();
 
-our $VERSION = '1.5';
+our $VERSION = '1.51';
 
 
 sub new{
@@ -296,7 +296,7 @@ Lingua::AR::Db - Perl extension for translating Arabic words into another langua
   use Lingua::AR::Db;
 
 my $word=Lingua::AR::Word->new(ARABIC_WORD_IN_UTF8);
-my $db=Lingua::AR::Db->new("./dicts","en");
+my $db=Lingua::AR::Db->new(DICT_FOLDER,LANGUAGE);
 
 
 open FOUTPUT, ">>TEST" or die "Cannot create TEST: $!\n";
@@ -307,7 +307,7 @@ close FOUTPUT;
 
 $db->display_html();
 $db->display_latex();
-$db->importation("file");
+$db->importation(FILE);
 
 =head1 DESCRIPTION
 

@@ -1,4 +1,4 @@
-Lingua-AR-Db version 1.4
+Lingua-AR-Db version 1.51
 ======================
 
 This is the DB management of a dictionary from Arabic to another language:
@@ -23,7 +23,7 @@ To install this module type the following:
 
 DEPENDENCIES
 
-This module requires module Lingua::AR::Word >=1.0 and Perl >=5.8.1
+This module requires module Lingua::AR::Word >=1.5 and Perl >=5.8.1
 
 
 MODULES
