@@ -41,4 +41,5 @@ print FOUTPUT
 close FOUTPUT;
 
 is($db->translate($word),"TRANSLATION: \tQueller\n\n");
-
+unlink "./dicts/%qm`";
+rmdir "./dicts";
