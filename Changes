@@ -1,5 +1,8 @@
 			<< Lingua::AR::Db - Andrea Benazzo >>
 
+18/09/2005	1.5.2
+->little fixes here and there
+
 29/06/2005	1.52
 ->now the test will delete the created dir
 

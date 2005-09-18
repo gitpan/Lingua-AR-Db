@@ -1,46 +1,40 @@
 package Lingua::AR::Db;
 
-use 5.008006;
 use strict;
 use warnings;
 use utf8;
-
-
 use Switch;
 
 
-our @ISA = qw();
-
-our $VERSION = '1.52';
+our $VERSION = '1.5.2';
 
 
 sub new{
 
+	my $class=$_[0];
 	my $this={
-		FOLDER=>$_[1],
-		LANG=>$_[2]
+		_folder=>$_[1],
+		_lang=>$_[2]
 	};
 
-	if(!-e $this->{FOLDER}){
-		warn "$this->{FOLDER} doesn't exists..creating it";
-		mkdir $this->{FOLDER}, 0755 or die "Can't create the $this->{FOLDER} directory: $!\n";
+	if(!-e $this->{_folder}){
+		warn "$this->{_folder} doesn't exists..creating it";
+		mkdir $this->{_folder}, 0755 or die "Can't create the $this->{folder} directory: $!\n";
 	}
 
-	bless($this);
-
-return $this;
+	bless($this,$class);
 }
 
 
 
 sub translate{
 
-	my $db=shift;
-	my $word=shift;
+	my ($db,$word)=@_;
+
 	my $translation="TRANSLATION: NotFound\n\n";
 
-	my $input=Lingua::AR::Word::encode($word->{STEM});
-	$input=($db->{FOLDER})."/%".$input;
+	my $input=Lingua::AR::Word::encode($word->{_stem});
+	$input=($db->{_folder})."/%".$input;
 
 	if (-e $input){
 		open DICT, "<".$input or die "Error in opening $input: $!";
@@ -49,7 +43,7 @@ sub translate{
 		my $found=0;
 		while($found==0 and my $line=<DICT>){
 			chomp($line);
-			if($line=~/^($word->{WORD})/){
+			if($line=~/^($word->{_word})/){
 				$translation="TRANSLATION: $'\n\n";
 				$found=1;
 			}
@@ -84,7 +78,7 @@ sub display_html{ # exports the dictionary in html form
 	foreach my $letter (@alphabet){
 	print INDEX "<h2>$letter</h2>\n<ol>\n";
 	$letter=Lingua::AR::Word::encode($letter);
-	my @dicts=glob($this->{FOLDER}."/%$letter*");
+	my @dicts=glob($this->{_folder}."/%$letter*");
 	
 print "Letter: $letter\n";
 print "dictionaries: @dicts\n";
