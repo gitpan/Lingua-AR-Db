@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 9;
+use Test::More tests => 14;
 use utf8;
 use strict;
 use warnings;
@@ -30,12 +30,13 @@ my $db=Lingua::AR::Db->new($database_name);
 ok(defined $db, "new() returned something");
 isa_ok($db,"Lingua::AR::Db");
 
-# let's test correct translation
-$db->value($arabic_word,"libreria");
-is($db->translate($arabic_word),"libreria","translation");
+# let's test correct sorted translations
+$db->value($arabic_word,"library","book shop");
+is(($db->translate($arabic_word))[0],"book shop","translation: first value");
+is(($db->translate($arabic_word))[1],"library","translation: second value");
 
-# let's test correct dump values
-is($db->export,"ktb::mktb\tlibreria\n","exportation");
+# let's test correct sorted dump values
+is($db->export,"ktb::mktb\tbook shop\nktb::mktb\tlibrary\n","exportation");
 
 # let's test correct HTML exportation through two cases: check on index page, check on stem page
 $db->export_html($html_folder);
@@ -53,8 +54,15 @@ close INDEX;
 open STEM, "<:utf8","./html/stem-$stem.html" or die "Cannot read ./html/stem-$stem.html: $!\n";
 @data=<STEM>;
 $data=join '\n',@data;
-like($data,qr{<li>mktb = libreria</li>},"html exportation: stem");
+like($data,qr{mktb},"html exportation: stem");
+like($data,qr{library},"html exportation: stem");
+like($data,qr{book shop},"html exportation: stem");
 close STEM;
+
+# let's test the correctness of the delete method
+$db->delete($arabic_word);
+is(($db->translate($arabic_word))[0],undef,"delete: first value");
+is(($db->translate($arabic_word))[1],undef,"delete: second value");
 
 
 

@@ -1,5 +1,12 @@
 			<< Lingua::AR::Db - Andrea Benazzo >>
 
+
+07/05/06	2.10
+->added support for multiple translations of a word: now an array is returned when asked for a translation
+->added sort to returned translation arrays
+->added delete method to erase all the translations of a word (this method is still alpha)
+->modified tests to cover these two new features
+
 28/04/2006      2.0
 ->major release based on the MultiDimensional DB
 
