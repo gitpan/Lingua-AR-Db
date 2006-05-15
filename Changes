@@ -1,5 +1,7 @@
 			<< Lingua::AR::Db - Andrea Benazzo >>
 
+15/05/06	2.11
+->now the Makefile just requires Perl 5.8.0 instead of 5.8.6
 
 07/05/06	2.10
 ->added support for multiple translations of a word: now an array is returned when asked for a translation

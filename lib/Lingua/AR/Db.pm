@@ -10,7 +10,7 @@ use Fcntl;
 use Lingua::AR::Word;
 
 
-our $VERSION = '2.10';
+our $VERSION = '2.11';
 
 
 sub new{
