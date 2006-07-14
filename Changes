@@ -1,5 +1,8 @@
 			<< Lingua::AR::Db - Andrea Benazzo >>
 
+14/07/06	2.12
+->Makefile now requires "DB_File" as well, as it's not available everywhere
+
 15/05/06	2.11
 ->now the Makefile just requires Perl 5.8.0 instead of 5.8.6
 
