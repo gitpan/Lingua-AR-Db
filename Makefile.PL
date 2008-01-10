@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME              => 'Lingua::AR::Db',
     VERSION_FROM      => 'lib/Lingua/AR/Db.pm', # finds $VERSION
-    PREREQ_PM         => {'Lingua::AR::Word' => 1.5.4, MLDBM, DB_File},
+    PREREQ_PM         => {'Lingua::AR::Word' => 1.5.4, MLDBM => 0, DB_File => 0},
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Lingua/AR/Db.pm', # retrieve abstract from module
        AUTHOR         => 'Andrea Benazzo <andy@slacky.it>') : ()),
