@@ -1,6 +1,6 @@
 			<< Lingua::AR::Db - Andrea Benazzo >>
 
-10/01/08	2.13
+10/01/08	2.14
 ->Makefile now requires a mininum version for MLDB and DB_File.
 
 14/07/06	2.12
